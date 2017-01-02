@@ -15,10 +15,7 @@ use Illuminate\Http\Request;
 */
 
 function getStatusPos($text){
-	$statuses = array(
-		'DISCUSSED'
-	);
-
+	$statuses = config('statuses');
 
 	foreach($statuses as $status){
 		
@@ -31,10 +28,6 @@ function getStatusPos($text){
 
 	return false;
 }
-
-$app->get('/', function () use ($app) {
-    return $app->version();
-});
 
 $app->get('api/config', function () {
     return response()->json([
