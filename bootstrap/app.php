@@ -23,6 +23,10 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
+
+// Load configuration
+require('../config/statuses.php');
+
 // $app->withFacades();
 
 // $app->withEloquent();
@@ -96,5 +100,6 @@ $app->singleton(
 $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
     require __DIR__.'/../routes/web.php';
 });
+
 
 return $app;

@@ -14,46 +14,6 @@ use Illuminate\Http\Request;
 |
 */
 
-//$currentItemPath = env('ITEM_UNDER_DISCUSSION_FILE_PATH');
-//$meetingsPath = env('MEETING_AGENDA_FILE_PATH');
-
-
-function updateMeetingStatus($id, $status){
-	$meetingsPath = '../' . env('MEETING_AGENDA_FILE_PATH');;
-	$reading = fopen($meetingsPath, 'r');
-	$writing = fopen($meetingsPath . '.tmp', 'w');
-
-	$replaced = false;
-	$index = 0;
-
-	while (!feof($reading)) {
-	  $line = fgets($reading);
-	  if ($index == $id) {
-
-	  	$statusPos = getStatusPos($line);
-
-		if($statusPos !== false){
-			$line = trim(substr($line, 0, $statusPos)) . ' ' . substr($line, $statusPos);
-		} else {
-			$line = $line . ' ' . substr($line, $statusPos);
-		}
-
-	    $replaced = true;
-	  }
-	  
-	  fputs($writing, $line);
-	  $index++;
-	}
-	fclose($reading); fclose($writing);
-	// might as well not overwrite the file if we didn't replace anything
-	if ($replaced) 
-	{
-	  rename($meetingsPath . '.tmp', $meetingsPath);
-	} else {
-	  unlink($meetingsPath . '.tmp');
-	}
-}
-
 function getStatusPos($text){
 	$statuses = array(
 		'DISCUSSED'
@@ -78,11 +38,9 @@ $app->get('/', function () use ($app) {
 
 $app->get('api/config', function () {
     return response()->json([
-    	'itemUnderDiscussionFilePath' => $currentItemPath,
-    	'meetingAgendaFilePath' => $meetingsPath
+    	'statuses' => config('statuses')
 	]);
 });
-
 
 
 $app->get('api/meetings', function () {
@@ -112,19 +70,29 @@ $app->get('api/meetings', function () {
     return response()->json($body);
 });
 
+$app->put('api/meetings',function(Request $request){
+	$meetingLines = [];
+	$meetings = $request->json()->all();
 
-$app->put('api/meetings/{index}', function () {
-	//$meetingsPath = env('MEETING_AGENDA_FILE_PATH');
-	//$newStatus = $request->json('status');
+	
+	foreach($meetings as $meeting){
+		$meetingLines[$meeting['id']] = $meeting['title'] . ' ' . $meeting['status'];
+	} 
 
-	//updateMeetingStatus($id, $newStatus);
-
-    return response()->json([
-    	'index' => '$index',
-    	'status' => '$newStatus'
-    ]);
+	$meetingsFileContents = implode(PHP_EOL, $meetingLines);
+	$meetingsPath = env('MEETING_AGENDA_FILE_PATH');
+	$result = file_put_contents('../' . $meetingsPath, $meetingsFileContents);	
+	
+	if($result){
+		return response()->json([
+	    	'success' => true
+	    ]);
+	} else {
+		return response()->json([
+    		'success' => false
+    	]);
+	}
 });
-
 
 $app->get('api/meetings/current', function () {
 	$currentItemPath = env('ITEM_UNDER_DISCUSSION_FILE_PATH');
