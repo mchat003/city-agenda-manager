@@ -132,85 +132,107 @@
     <script src="../js/api.js"></script>
     
     <!-- HTML Templates -->
-    <script id="meeting-data" type="text/template" src="../data/MeetingAgenda.txt"></script>
+
     <script id="meeting-row-template" type="text/template">
-      <tr id="" class="{{parity}} gradeX">
+      <tr id="" class="{{parity}} gradeX" data-index="{{index}}">
           <td>{{title}}</td>
-          <td>{{status}}</td>
-          <td><button data-index="{{index}}" type="button" class="btn btn-primary meeting-select-button">Discuss</button></td>
+          <td>
+            {{statusDropdown}}
+          </td>
+          <td><button type="button" class="btn btn-primary meeting-select-button">Discuss</button></td>
       </tr>
     </script>
+
+    <script id="status-dropdown-template" type="text/template">
+      <select class="status-dropdown form-control">
+        <option value="" disabled selected>Select Status</option>
+        {{statusOptions}}
+      </select>
+    </script>
+
+    <script id="status-option-template" type="text/template">
+      <option value="{{statusValue}}" {{statusSelected}}>{{statusDisplayText}}</option>
+    </script>
+    
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
-        var MEETING_AGENDA_ENDPOINT = 'http://localhost:8888/data/MeetingAgenda.txt',
-            ITEM_UNDER_DISCUSSION_ENDPOINT = 'http://localhost:8888/data/ItemUnderDiscussion.txt',
-            MEETING_STATUSES = ['DISCUSSED', 'PASSED', 'FAILED'],
-            meetingsSerialized = '',
-            meetings = [],
-            selectedMeeting = null;
-
+        var meetings = [],
+            meetingStatuses = [];
 
         $(document).ready(function() {
 
           var meetingsTable = $("#meetings-table"),
               meetingRowTemplate = $("#meeting-row-template").html(),
               selectedMeetingTitle = $("#selected-title");
+          
+          var meetingRowSelectHandler = function(e){
+              var iMeetingSelected = $(e.target).parent().parent().data('index'),
+                  meetingSelected = meetings[iMeetingSelected];
 
-          function deserializeMeetingItem(meetingText){
-            var possibleStatus,
-                statusToCheck,
-                result = {
-                  title: meetingText,
-                  status: ''
-                };
-
-            for(var i = 0; i < MEETING_STATUSES.length; i++){
-              statusToCheck = MEETING_STATUSES[i],
-              possibleStatus = meetingText.slice(meetingText.length - MEETING_STATUSES[i].length - 1).replace(' ', '');
-              statusMatch = meetingText.replace(' ', '').match(statusToCheck)
-
-              if (meetingText.match(statusToCheck)){
-                result.title =  meetingText.slice(0, meetingText.length - statusToCheck.length - 1);
-                result.status =  statusToCheck;
-                break;
-              }
-            }
-
-            return result;
-          }
-
-          function selectMeeting(meetingIndex){
-            var meeting = meetings[meetingIndex];
-            selectedMeetingTitle.html(meeting.title);
+              renderCurrentMeeting(selectedMeetingTitle, meetingSelected);
+              api.updateCurrentMeeting(meetingSelected);
           };
 
-          $.get(ITEM_UNDER_DISCUSSION_ENDPOINT, function(data){
-            selectedMeetingTitle.html(data);
-          });
+          var statusDropdownSelectHandler = function(e){
+              var iMeetingSelected = $(e.target).parent().parent().data('index'),
+                  newStatusSelected = $(e.target).val();
 
-          $.get(MEETING_AGENDA_ENDPOINT, function(data){
-              meetings = data.split('\n').map(function(meeting, index){
-                return deserializeMeetingItem(meeting);
-              });
+              meetings[iMeetingSelected].status = newStatusSelected;
+              api.updateMeetings(meetings);
+          };
 
-              meetingsTable.html(meetings.map(function(meeting, index){
-                return meetingRowTemplate
+          var getRenderedMeetingStatusDropdown = function(meeting){
+              var statusDropdownTemplate = $("#status-dropdown-template").html(),
+                  statusOptionTemplate = $("#status-option-template").html();
+
+              return statusDropdownTemplate.replace('{{statusOptions}}', meetingStatuses.map(function(status){
+                  return statusOptionTemplate
+                    .replace('{{statusValue}}', status)
+                    .replace('{{statusSelected}}', status === meeting.status ? "selected" : "")
+                    .replace('{{statusDisplayText}}', 
+                        status.split(' ').map(function(statusWord){
+                            return statusWord.charAt(0).toUpperCase() + statusWord.slice(1).toLowerCase();
+                        })
+                    );
+              }));
+          };
+
+          var renderMeetings = function (tableElement, rowTemplate, meetingObjs){
+              tableElement.html(meetingObjs.map(function(meeting, index){
+                return rowTemplate
                   .replace('{{parity}}', index % 2 === 0 ? 'even' : 'odd')
                   .replace('{{title}}', meeting.title)
-                  .replace('{{status}}', meeting.status)
+                  .replace('{{statusDropdown}}', getRenderedMeetingStatusDropdown(meeting))
                   .replace('{{index}}', index)
               }));
 
-              $('.meeting-select-button').click(function(e){
-                  selectMeeting($(this).data('index'));
-              });
-          });
+              $('.meeting-select-button').click(meetingRowSelectHandler);
+              $('.status-dropdown').change(statusDropdownSelectHandler);
+          };
 
+          var renderCurrentMeeting = function(titleElement, meetingObj){
+              titleElement.html(meetingObj.title);
+          };
+
+          // Initialize
           $('#dataTables-example').DataTable({
               responsive: true,
+              searching: false, 
+              paging: false,
               columns: [
                   { "width": "80%" }
               ]
+          });
+
+          api.getConfig().then(function(response){
+              meetingStatuses = response.statuses;
+              return api.getMeetings();
+          }).then(function(response){
+              meetings = response;
+              renderMeetings(meetingsTable, meetingRowTemplate, response);
+              return api.getCurrentMeeting();
+          }).then(function(response){
+              renderCurrentMeeting(selectedMeetingTitle, response);
           });
         });
     </script>
