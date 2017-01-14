@@ -6,94 +6,94 @@ AM.3	City Commission - Special Meeting - Sep 29, 2016 11:00 AM POSTPONED
 PA.1	Personal Appearance - Ralph Rosado DISCUSSED
 CA.1	Exec. - Mutual Aid Agreements DISCUSSED
 CA.2	Appr. Addendum - Taget Solutions DISCUSSED
-CA.3	Accpt. Assgmnt. - Draeger, Inc.   
-CA.4	IFB - Elev. Maintenance Srvcs.   
-CA.5	Lease Agrmnt. - Olympia Center, Inc.   
-CA.6	Peacock Park to Condo. Ownership   
-CA.7	Exec. Agrmnt - FIU Carta   
-CA.8	Exec. Agrmnt. - FIU Carta Cultural Awareness   
-CA.9	Auth. Settlement - Michael A. Williams   
-CA.10	Appeal - Battersea Woods   
-CA.11	Urge Review - School Buses   
-CA.12	Waive Temp. Event- North Miami Ave   
-CA.13	Waive Temp. Event - North East 17 Street   
-CA.14	Urge President - Democratic Cuban Gov.   
-PH.1	Allocate - Emergency Housing   
-PH.2	Plat - Miami Douglas Station   
-PH.3	Sole Source - Ten-8 Fire Equipment   
-PH.4	API - Leadership Learning Center   
-PH.5	API - Miami Music Project   
-PH.6	API - Omega Power and Praise Ministry   
-PH.7	API - Multi-Ethnic Group   
-PH.8	API - Curley's House of Style Inc.   
-PH.9	API - Easter Seals   
-PH.10	API - Year Up, Inc.   
-PH.11	API - Common Threads   
-SR.1	Amend Code - Police Administrative Fee   
-SR.2	Amend Code - Building Permits   
-SR.3	Amend Code - Pet Ordinance   
-FR.1	Amend Code - Distressed Development Sites   
-RE.1	Change - Fiscal Year   
-RE.2	Exec. Amendment - Flagler First Condo.   
-RE.3	Exec. Agrmt - Camilus House, Inc. 2016-17   
-RE.4	Piggyback - Disaster Debris Removal   
-RE.5	Grant - Cops Hiring Prgm.   
-RE.6	Accept Proposals - Citywide Towing Srvcs.   
-RE.7	Exec. Lease Agrmnt. Better Way of Mia, Inc.   
-RE.8	Negotiate - RFP and Sale/Lease of MRC   
-RE.9	RFP - Virginia Key Marina   
-RE.10	Auth. Agrmnt - Hire Retired Police Off.   
-RE.11	Approve Covenant - Jose Marti Park   
-RE.12	Auth Increase to PSAS - Misc Architectual Services   
-RE.13	Auth. Increase to PSAS - Misc Environmental Engineering Srvcs   
-RE.14	Auth. Increase to PSAS - Misc. Civil Engineering Srvcs.   
-RE.15	Approve - Bond Health Facilities   
-RE.16	November 8, 2016 City of Miami Special Election - Certification and    
-RE.17	Supp. - Low Income Home Energ. Ass.   
-RE.18	Implement - 20 mph Speed Limit   
-AC.1	Village of Key Biscayne   
-AC.2	Alexis Stevens   
-AC.3	FPL   
-BC.1	Arts and Entertainment Council   
-BC.2	Audit Advisory Committee   
-BC.3	Bayfront Park Management Trust   
-BC.4	City of Miami Beautification Committee   
-BC.5	Civilian Investigative Panel   
-BC.6	Code Enforcement Board   
-BC.7	Community Relations Board   
-BC.8	Commission on the Status of Women   
-BC.9	Downtown Development Authority   
-BC.10	Education Advisory Board   
-BC.11	Equal Opportunity Advisory Board   
-BC.12	Finance Committee   
-BC.13	Health Facilities Authority Board   
-BC.14	Miami Sports and Exhibition Authority   
-BC.15	OAB/Overtown Community Oversight Board - APPOINTED MEMBERS   
-BC.16	Parks and Recreation Advisory Board   
-BC.17	Planning, Zoning and Appeals Board   
-BC.18	Sea Level Rise Committee   
-BC.19	Senior Citizens' Advisory Board   
-BC.20	Urban Development Review Board   
-BC.21	Virginia Key Beach Park Trust   
-BC.22	Waterfront Advisory Board   
-BU. 	BUDGET   
-BU.1	Status of FY '17 Current & FY '18 Proposed Budgets   
-DI.1	Status of Hiring Police Officers   
-DI.2	Directive - Review Ordinance 13587 & 13594   
-DI.3	Audit Findings - Towing Fees & Off-Duty Police Empl. Activities   
-DI.4	Discussion - Swales   
-DI.5	Deteriorated Police Storage Units   
-PZ.1	Zoning Text - Off Street Parking   
-PZ.2	Zoning Text - Article 4 & Article 5   
-PZ.3	Zoning Text - Microbreweries   
-PZ.4	DRI Increment III   
-PZ 5	Land Use - 28 NW 30 St   
-PZ.6	Rezoning - 26 NW 30 St & 28 NW 30 St   
-PZ.7	Land Use - 20 SE 10 St   
-PZ.8	Rezoning - 20 SE 10 St   
-D1.	COMMISSIONER WIFREDO (WILLY) GORT   
-D2.	VICE CHAIR KEN RUSSELL   
-D3.	COMMISSIONER FRANK CAROLLO   
-D4.	COMMISSIONER FRANCIS SUAREZ   
-D5.	CHAIR KEON HARDEMON   
-FL.1	Amend Code - Alcoholic Beverages   
+CA.3	Accpt. Assgmnt. - Draeger, Inc.    DISCUSSED
+CA.4	IFB - Elev. Maintenance Srvcs.    POSTPONED
+CA.5	Lease Agrmnt. - Olympia Center, Inc.    DISCUSSED
+CA.6	Peacock Park to Condo. Ownership    POSTPONED
+CA.7	Exec. Agrmnt - FIU Carta    DISCUSSED
+CA.8	Exec. Agrmnt. - FIU Carta Cultural Awareness    POSTPONED
+CA.9	Auth. Settlement - Michael A. Williams    DISCUSSED
+CA.10	Appeal - Battersea Woods    
+CA.11	Urge Review - School Buses    
+CA.12	Waive Temp. Event- North Miami Ave    
+CA.13	Waive Temp. Event - North East 17 Street    
+CA.14	Urge President - Democratic Cuban Gov.    
+PH.1	Allocate - Emergency Housing    
+PH.2	Plat - Miami Douglas Station    
+PH.3	Sole Source - Ten-8 Fire Equipment    
+PH.4	API - Leadership Learning Center    
+PH.5	API - Miami Music Project    
+PH.6	API - Omega Power and Praise Ministry    
+PH.7	API - Multi-Ethnic Group    
+PH.8	API - Curley's House of Style Inc.    
+PH.9	API - Easter Seals    
+PH.10	API - Year Up, Inc.    
+PH.11	API - Common Threads    
+SR.1	Amend Code - Police Administrative Fee    
+SR.2	Amend Code - Building Permits    
+SR.3	Amend Code - Pet Ordinance    
+FR.1	Amend Code - Distressed Development Sites    
+RE.1	Change - Fiscal Year    
+RE.2	Exec. Amendment - Flagler First Condo.    
+RE.3	Exec. Agrmt - Camilus House, Inc. 2016-17    
+RE.4	Piggyback - Disaster Debris Removal    
+RE.5	Grant - Cops Hiring Prgm.    
+RE.6	Accept Proposals - Citywide Towing Srvcs.    
+RE.7	Exec. Lease Agrmnt. Better Way of Mia, Inc.    
+RE.8	Negotiate - RFP and Sale/Lease of MRC    
+RE.9	RFP - Virginia Key Marina    
+RE.10	Auth. Agrmnt - Hire Retired Police Off.    
+RE.11	Approve Covenant - Jose Marti Park    
+RE.12	Auth Increase to PSAS - Misc Architectual Services    
+RE.13	Auth. Increase to PSAS - Misc Environmental Engineering Srvcs    
+RE.14	Auth. Increase to PSAS - Misc. Civil Engineering Srvcs.    
+RE.15	Approve - Bond Health Facilities    
+RE.16	November 8, 2016 City of Miami Special Election - Certification and     
+RE.17	Supp. - Low Income Home Energ. Ass.    
+RE.18	Implement - 20 mph Speed Limit    
+AC.1	Village of Key Biscayne    
+AC.2	Alexis Stevens    
+AC.3	FPL    
+BC.1	Arts and Entertainment Council    
+BC.2	Audit Advisory Committee    
+BC.3	Bayfront Park Management Trust    
+BC.4	City of Miami Beautification Committee    
+BC.5	Civilian Investigative Panel    
+BC.6	Code Enforcement Board    
+BC.7	Community Relations Board    
+BC.8	Commission on the Status of Women    
+BC.9	Downtown Development Authority    
+BC.10	Education Advisory Board    
+BC.11	Equal Opportunity Advisory Board    
+BC.12	Finance Committee    
+BC.13	Health Facilities Authority Board    
+BC.14	Miami Sports and Exhibition Authority    
+BC.15	OAB/Overtown Community Oversight Board - APPOINTED MEMBERS    
+BC.16	Parks and Recreation Advisory Board    
+BC.17	Planning, Zoning and Appeals Board    
+BC.18	Sea Level Rise Committee    
+BC.19	Senior Citizens' Advisory Board    
+BC.20	Urban Development Review Board    
+BC.21	Virginia Key Beach Park Trust    
+BC.22	Waterfront Advisory Board    
+BU. 	BUDGET    
+BU.1	Status of FY '17 Current & FY '18 Proposed Budgets    
+DI.1	Status of Hiring Police Officers    
+DI.2	Directive - Review Ordinance 13587 & 13594    
+DI.3	Audit Findings - Towing Fees & Off-Duty Police Empl. Activities    
+DI.4	Discussion - Swales    
+DI.5	Deteriorated Police Storage Units    
+PZ.1	Zoning Text - Off Street Parking    
+PZ.2	Zoning Text - Article 4 & Article 5    
+PZ.3	Zoning Text - Microbreweries    
+PZ.4	DRI Increment III    
+PZ 5	Land Use - 28 NW 30 St    
+PZ.6	Rezoning - 26 NW 30 St & 28 NW 30 St    
+PZ.7	Land Use - 20 SE 10 St    
+PZ.8	Rezoning - 20 SE 10 St    
+D1.	COMMISSIONER WIFREDO (WILLY) GORT    
+D2.	VICE CHAIR KEN RUSSELL    
+D3.	COMMISSIONER FRANK CAROLLO    
+D4.	COMMISSIONER FRANCIS SUAREZ    
+D5.	CHAIR KEON HARDEMON    
+FL.1	Amend Code - Alcoholic Beverages
