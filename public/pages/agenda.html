@@ -26,6 +26,8 @@
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
 
+    <link href="../dist/css/style.css" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -41,6 +43,9 @@
 <body>
 
     <div id="wrapper">
+        <div id="loading-screen"><img src="../img/spin.gif"></div>
+        <button id="add-meeting-button" type="button" class="btn btn-danger btn-circle btn-xl"><i class="fa fa-plus"></i></button>
+        <button id="save-meeting-button" style="display: none;" type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-floppy-o"></i></button>
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -163,22 +168,35 @@
 
           var meetingsTable = $("#meetings-table"),
               meetingRowTemplate = $("#meeting-row-template").html(),
-              selectedMeetingTitle = $("#selected-title");
+              selectedMeetingTitle = $("#selected-title"),
+              addMeetingButton = $("#add-meeting-button"),
+              saveMeetingButton = $("#save-meeting-button"),
+              loadingScreen = $("#loading-screen");
+
+          loadingScreen.show();
+
+          var getLastMeetingRow = function(){
+              return meetingsTable.find("> tr:last-child");
+          };
           
           var meetingRowSelectHandler = function(e){
               var iMeetingSelected = $(e.target).parent().parent().data('index'),
                   meetingSelected = meetings[iMeetingSelected];
 
               renderCurrentMeeting(selectedMeetingTitle, meetingSelected);
-              api.updateCurrentMeeting(meetingSelected);
+              loadingScreen.show();              
+              api.updateCurrentMeeting(meetingSelected).then(function(){
+                loadingScreen.hide();
+              });
           };
 
           var statusDropdownSelectHandler = function(e){
-              var iMeetingSelected = $(e.target).parent().parent().data('index'),
-                  newStatusSelected = $(e.target).val();
+              var iMeetingSelected = $(e.target).parent().parent().data('index');
 
-              meetings[iMeetingSelected].status = newStatusSelected;
-              api.updateMeetings(meetings);
+              loadingScreen.show();
+              updateMeetingFromDOM(iMeetingSelected, null, $(e.target)).then(function(){
+                loadingScreen.hide();
+              });
           };
 
           var getRenderedMeetingStatusDropdown = function(meeting){
@@ -214,6 +232,64 @@
               titleElement.html(meetingObj.title);
           };
 
+          var updateMeetingFromDOM = function(meetingID, titleElement, statusElement){
+            if(titleElement){
+              meetings[meetingID].title = titleElement.text();
+            }
+
+            if(statusElement){
+              meetings[meetingID].status = statusElement.val();
+            }
+
+            return api.updateMeetings(meetings);
+          }
+
+          addMeetingButton.click(function(e){
+            var lastMeetingRow,
+                lastMeetingRowTitleElement;
+
+            addMeetingButton.hide();
+            saveMeetingButton.show();
+
+            // Create a new row and render it
+            meetings.push({
+              id: meetings.length + 1,
+              status: '',
+              title: ''
+            });
+            renderMeetings(meetingsTable, meetingRowTemplate, meetings);
+
+            // Scroll to the bottom
+            $('html, body').animate({
+                scrollTop: $(document).height()
+            }, 'slow');
+
+            // Edit the row
+            lastMeetingRow = getLastMeetingRow();
+            lastMeetingRowTitleElement = lastMeetingRow.find("> td:first-child");
+            lastMeetingRowTitleElement
+              .attr('contenteditable', true)
+              .focus()
+              .on('blur', function(){
+                loadingScreen.show();
+                updateMeetingFromDOM(meetings.length - 1, $(this), null).then(function(){
+                  saveMeetingButton.hide();
+                  addMeetingButton.show();
+                  loadingScreen.hide();
+                })
+              });
+          });
+
+          saveMeetingButton.click(function(e){
+            var lastMeetingRowTitleElement = getLastMeetingRow().find("> td:first-child");
+            loadingScreen.show();
+            updateMeetingFromDOM(meetings.length - 1, lastMeetingRowTitleElement, null).then(function(){
+              saveMeetingButton.hide();
+              addMeetingButton.show();
+              loadingScreen.hide();
+            })
+          });
+
           // Initialize
           $('#dataTables-example').DataTable({
               responsive: true,
@@ -233,6 +309,7 @@
               return api.getCurrentMeeting();
           }).then(function(response){
               renderCurrentMeeting(selectedMeetingTitle, response);
+              loadingScreen.hide();
           });
         });
     </script>
