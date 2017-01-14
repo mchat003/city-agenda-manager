@@ -31,15 +31,17 @@ function getStatusPos($text){
 
 $app->get('api/config', function () {
     return response()->json([
-    	'statuses' => config('statuses')
+    	'statuses' => config('statuses'),
+		'itemUnderDiscussionFilePath' => env('ITEM_UNDER_DISCUSSION_FILE_PATH'),
+		'meetingAgendaFilePath' => env('MEETING_AGENDA_FILE_PATH')
 	]);
 });
 
 
 $app->get('api/meetings', function () {
 	$meetingsPath = env('MEETING_AGENDA_FILE_PATH');
-	$meetingsFileContents = file_get_contents('../' . $meetingsPath, FILE_USE_INCLUDE_PATH);
-	$meetingList = explode(PHP_EOL, $meetingsFileContents);
+	$meetingsFileContents = file_get_contents($meetingsPath, FILE_USE_INCLUDE_PATH);
+	$meetingList = preg_split('/\n|\r\n?/', $meetingsFileContents);
 	$body = array();
 
 	foreach($meetingList as $index => $line){
@@ -74,7 +76,7 @@ $app->put('api/meetings',function(Request $request){
 
 	$meetingsFileContents = implode(PHP_EOL, $meetingLines);
 	$meetingsPath = env('MEETING_AGENDA_FILE_PATH');
-	$result = file_put_contents('../' . $meetingsPath, $meetingsFileContents);	
+	$result = file_put_contents($meetingsPath, $meetingsFileContents);	
 	
 	if($result){
 		return response()->json([
@@ -89,7 +91,7 @@ $app->put('api/meetings',function(Request $request){
 
 $app->get('api/meetings/current', function () {
 	$currentItemPath = env('ITEM_UNDER_DISCUSSION_FILE_PATH');
-	$currentItemFileContents = file_get_contents('../' . $currentItemPath, FILE_USE_INCLUDE_PATH);
+	$currentItemFileContents = file_get_contents($currentItemPath, FILE_USE_INCLUDE_PATH);
 
     return response()->json([
     	'title' => trim($currentItemFileContents)
@@ -100,7 +102,7 @@ $app->put('api/meetings/current', function (Request $request) {
 	$currentItemPath = env('ITEM_UNDER_DISCUSSION_FILE_PATH');
 	$newTitle = $request->json('title');
 
-	file_put_contents('../' . $currentItemPath, $newTitle);
+	file_put_contents($currentItemPath, $newTitle);
 
     return response()->json([
     	'title' => $newTitle
