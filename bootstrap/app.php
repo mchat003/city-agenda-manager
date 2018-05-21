@@ -1,5 +1,7 @@
 <?php
 
+use \Illuminate\Support\Facades\Facade as Facade;
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 try {
@@ -25,7 +27,7 @@ $app = new Laravel\Lumen\Application(
 
 
 // Load configuration
-require('../config/statuses.php');
+require('./../config/statuses.php');
 
 // $app->withFacades();
 
@@ -51,6 +53,13 @@ $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     App\Console\Kernel::class
 );
+
+$app->singleton('filesystem', function ($app) {
+    return $app->loadComponent('filesystems', 'Illuminate\Filesystem\FilesystemServiceProvider', 'filesystem');
+});
+
+Facade::setFacadeApplication($app);
+
 
 /*
 |--------------------------------------------------------------------------

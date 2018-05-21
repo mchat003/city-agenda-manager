@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,7 @@ function getStatusPos($text){
 	$statuses = config('statuses');
 
 	foreach($statuses as $status){
-		
+
 		$statusPos = strpos($text, $status);
 
 		if($statusPos !== false){
@@ -32,17 +33,18 @@ function getStatusPos($text){
 $app->get('api/config', function () {
     return response()->json([
     	'statuses' => config('statuses'),
-		'itemUnderDiscussionFilePath' => env('ITEM_UNDER_DISCUSSION_FILE_PATH'),
-		'meetingAgendaFilePath' => env('MEETING_AGENDA_FILE_PATH')
+			'itemUnderDiscussionFilePath' => env('ITEM_UNDER_DISCUSSION_FILE_PATH'),
+			'meetingAgendaFilePath' => env('MEETING_AGENDA_FILE_PATH')
 	]);
 });
 
 
 $app->get('api/meetings', function () {
 	$meetingsPath = env('MEETING_AGENDA_FILE_PATH');
-	$meetingsFileContents = file_get_contents($meetingsPath, FILE_USE_INCLUDE_PATH);
+	$meetingsFileContents = Storage::disk('s3')->get($meetingsPath);
 	$meetingList = preg_split('/\n|\r\n?/', $meetingsFileContents);
 	$body = array();
+
 
 	foreach($meetingList as $index => $line){
 		if(!empty($line)){
@@ -58,26 +60,27 @@ $app->get('api/meetings', function () {
 			}
 
 			$body[$index]['id'] = $index;
-			
+
 		}
 	}
 
-    return response()->json($body);
+	return response()->json($body);
 });
 
 $app->put('api/meetings',function(Request $request){
 	$meetingLines = [];
 	$meetings = $request->json()->all();
 
-	
+
 	foreach($meetings as $meeting){
 		$meetingLines[$meeting['id']] = $meeting['title'] . ' ' . $meeting['status'];
-	} 
+	}
 
 	$meetingsFileContents = implode(PHP_EOL, $meetingLines);
 	$meetingsPath = env('MEETING_AGENDA_FILE_PATH');
-	$result = file_put_contents($meetingsPath, $meetingsFileContents);	
-	
+
+	$result = Storage::disk('s3')->put($meetingsPath, $meetingsFileContents);
+
 	if($result){
 		return response()->json([
 	    	'success' => true
@@ -91,7 +94,7 @@ $app->put('api/meetings',function(Request $request){
 
 $app->get('api/meetings/current', function () {
 	$currentItemPath = env('ITEM_UNDER_DISCUSSION_FILE_PATH');
-	$currentItemFileContents = file_get_contents($currentItemPath, FILE_USE_INCLUDE_PATH);
+	$currentItemFileContents = Storage::disk('s3')->get($currentItemPath);
 
     return response()->json([
     	'title' => trim($currentItemFileContents)
@@ -102,9 +105,17 @@ $app->put('api/meetings/current', function (Request $request) {
 	$currentItemPath = env('ITEM_UNDER_DISCUSSION_FILE_PATH');
 	$newTitle = $request->json('title');
 
-	file_put_contents($currentItemPath, $newTitle);
+	$result = Storage::disk('s3')->put($currentItemPath, $newTitle);
 
-    return response()->json([
+	if($result){
+		return response()->json([
+			'success' => true,
     	'title' => $newTitle
     ]);
+	} else {
+		return response()->json([
+    		'success' => false
+    	]);
+	}
+
 });
