@@ -30,6 +30,10 @@ function getStatusPos($text){
 	return false;
 }
 
+$app->get('/', function () {
+    return view('agenda');
+});
+
 $app->get('api/config', function () {
     return response()->json([
     	'statuses' => config('statuses'),
