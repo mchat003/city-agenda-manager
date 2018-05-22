@@ -158,10 +158,11 @@
     <!-- HTML Templates -->
 
     <script id="meeting-row-template" type="text/template">
-      <tr id="" class="{{parity}} gradeX" data-index="{{index}}">
-          <td>{{title}}</td>
+
+      <tr class="{parity} gradeX" data-index="{index}">
+          <td>{title}</td>
           <td>
-            {{statusDropdown}}
+            {statusDropdown}
           </td>
           <td><button type="button" class="btn btn-primary meeting-select-button">Discuss</button></td>
       </tr>
@@ -170,16 +171,16 @@
     <script id="status-dropdown-template" type="text/template">
       <select class="status-dropdown form-control">
         <option value="" disabled selected>Select Status</option>
-        {{statusOptions}}
+        {statusOptions}
       </select>
     </script>
 
     <script id="status-option-template" type="text/template">
-      <option value="{{statusValue}}" {{statusSelected}}>{{statusDisplayText}}</option>
+      <option value="{statusValue}" {statusSelected}>{statusDisplayText}</option>
     </script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
+    <script type="text/javascript">
         var meetings = [],
             meetingStatuses = [];
 
@@ -222,11 +223,11 @@
               var statusDropdownTemplate = $("#status-dropdown-template").html(),
                   statusOptionTemplate = $("#status-option-template").html();
 
-              return statusDropdownTemplate.replace('{{statusOptions}}', meetingStatuses.map(function(status){
+              return statusDropdownTemplate.replace('{statusOptions}', meetingStatuses.map(function(status){
                   return statusOptionTemplate
-                    .replace('{{statusValue}}', status)
-                    .replace('{{statusSelected}}', status === meeting.status ? "selected" : "")
-                    .replace('{{statusDisplayText}}',
+                    .replace('{statusValue}', status)
+                    .replace('{statusSelected}', status === meeting.status ? "selected" : "")
+                    .replace('{statusDisplayText}',
                         status.split(' ').map(function(statusWord){
                             return statusWord.charAt(0).toUpperCase() + statusWord.slice(1).toLowerCase();
                         }).join(' ')
@@ -237,10 +238,10 @@
           var renderMeetings = function (tableElement, rowTemplate, meetingObjs){
               tableElement.html(meetingObjs.map(function(meeting, index){
                 return rowTemplate
-                  .replace('{{parity}}', index % 2 === 0 ? 'even' : 'odd')
-                  .replace('{{title}}', meeting.title)
-                  .replace('{{statusDropdown}}', getRenderedMeetingStatusDropdown(meeting))
-                  .replace('{{index}}', index)
+                  .replace('{parity}', index % 2 === 0 ? 'even' : 'odd')
+                  .replace('{title}', meeting.title)
+                  .replace('{statusDropdown}', getRenderedMeetingStatusDropdown(meeting))
+                  .replace('{index}', index)
               }));
 
               $('.meeting-select-button').click(meetingRowSelectHandler);
