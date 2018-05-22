@@ -1,3 +1,4 @@
+Demo is up at http://city-agenda-manager.herokuapp.com
 
 ## Instructions
 
