@@ -25,9 +25,8 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-
 // Load configuration
-require('./../config/statuses.php');
+require(__DIR__.'/../config/statuses.php');
 
 // $app->withFacades();
 
