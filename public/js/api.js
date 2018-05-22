@@ -1,5 +1,5 @@
 var api = {
-	HOST: '/city-agenda-manager/public/api'
+	HOST: '/api'
 }
 
 api.endpointConfig = api.HOST + '/config'
